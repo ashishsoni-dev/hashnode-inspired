@@ -9,10 +9,41 @@ async function startServer() {
         throw new Error("JWT_SECRET must be configured with at least 32 characters.");
     }
 
+    if (process.env.NODE_ENV === "production") {
+        const clientOrigins = String(process.env.CLIENT_URL ?? "")
+            .split(",")
+            .map((origin) => origin.trim())
+            .filter(Boolean);
+
+        if (clientOrigins.length === 0) {
+            throw new Error(
+                "CLIENT_URL must be configured in production with the deployed frontend origin."
+            );
+        }
+
+        for (const origin of clientOrigins) {
+            let parsedOrigin;
+
+            try {
+                parsedOrigin = new URL(origin);
+            } catch {
+                throw new Error(
+                    "CLIENT_URL must contain valid HTTPS origins separated by commas."
+                );
+            }
+
+            if (parsedOrigin.protocol !== "https:" || parsedOrigin.origin !== origin) {
+                throw new Error(
+                    "CLIENT_URL must contain exact HTTPS origins without trailing slashes, separated by commas."
+                );
+            }
+        }
+    }
+
     await connectDatabase();
 
     const server = app.listen(port, () => {
-        console.log(`Hasnode Clone API listening at http://localhost:${port}`);
+        console.log(`Hashnode Inspired API listening at http://localhost:${port}`);
         console.log(`Health check: http://localhost:${port}/api/health`);
     });
 

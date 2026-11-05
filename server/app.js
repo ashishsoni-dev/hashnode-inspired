@@ -36,7 +36,7 @@ app.get("/api/health", (req, res) => {
     return res.status(databaseConnected ? 200 : 503).json({
         success: databaseConnected,
         data: {
-            service: "hasnode-clone-api",
+            service: "hashnode-inspired-api",
             status: databaseConnected ? "healthy" : "database_unavailable",
             database: databaseConnected ? "connected" : "disconnected",
             timestamp: new Date().toISOString(),

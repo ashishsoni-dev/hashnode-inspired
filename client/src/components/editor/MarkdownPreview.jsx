@@ -6,6 +6,14 @@ import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import css from "react-syntax-highlighter/dist/esm/languages/prism/css";
 import markup from "react-syntax-highlighter/dist/esm/languages/prism/markup";
 import json from "react-syntax-highlighter/dist/esm/languages/prism/json";
+import typescript from "react-syntax-highlighter/dist/esm/languages/prism/typescript";
+import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx";
+import python from "react-syntax-highlighter/dist/esm/languages/prism/python";
+import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
+import sql from "react-syntax-highlighter/dist/esm/languages/prism/sql";
+import yaml from "react-syntax-highlighter/dist/esm/languages/prism/yaml";
+import markdown from "react-syntax-highlighter/dist/esm/languages/prism/markdown";
+import diff from "react-syntax-highlighter/dist/esm/languages/prism/diff";
 
 import oneDark from "react-syntax-highlighter/dist/esm/styles/prism/one-dark";
 
@@ -15,6 +23,31 @@ SyntaxHighlighter.registerLanguage("css", css);
 SyntaxHighlighter.registerLanguage("markup", markup);
 SyntaxHighlighter.registerLanguage("html", markup);
 SyntaxHighlighter.registerLanguage("json", json);
+SyntaxHighlighter.registerLanguage("typescript", typescript);
+SyntaxHighlighter.registerLanguage("tsx", tsx);
+SyntaxHighlighter.registerLanguage("python", python);
+SyntaxHighlighter.registerLanguage("bash", bash);
+SyntaxHighlighter.registerLanguage("sql", sql);
+SyntaxHighlighter.registerLanguage("yaml", yaml);
+SyntaxHighlighter.registerLanguage("markdown", markdown);
+SyntaxHighlighter.registerLanguage("diff", diff);
+
+const SUPPORTED_LANGUAGES = [
+    "javascript",
+    "jsx",
+    "css",
+    "markup",
+    "html",
+    "json",
+    "typescript",
+    "tsx",
+    "python",
+    "bash",
+    "sql",
+    "yaml",
+    "markdown",
+    "diff",
+];
 
 function MarkdownPreview({ content }) {
     if (!content.trim()) {
@@ -31,9 +64,7 @@ function MarkdownPreview({ content }) {
             <ReactMarkdown
                 components={{
                     code({ children, className, ...props }) {
-                        const match = /language-([\w-]+)/.exec(
-                            className || ""
-                        );
+                        const match = /language-([\w-]+)/.exec(className || "");
 
                         if (!match) {
                             return (
@@ -46,21 +77,10 @@ function MarkdownPreview({ content }) {
                         const language = match[1].toLowerCase();
                         const code = String(children).replace(/\n$/, "");
 
-                        const supportedLanguages = [
-                            "javascript",
-                            "jsx",
-                            "css",
-                            "markup",
-                            "html",
-                            "json",
-                        ];
-
-                        if (supportedLanguages.includes(language)) {
+                        if (SUPPORTED_LANGUAGES.includes(language)) {
                             return (
                                 <SyntaxHighlighter
-                                    language={
-                                        language === "html" ? "markup" : language
-                                    }
+                                    language={language === "html" ? "markup" : language}
                                     style={oneDark}
                                     PreTag="div"
                                     wrapLongLines

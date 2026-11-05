@@ -27,7 +27,12 @@ export const createUploadSignature = asyncHandler(async (req, res) => {
 
     const timestamp = Math.floor(Date.now() / 1000);
     const folder = allowedFolders[purpose];
-    const parameters = { folder, timestamp };
+    const allowedFormats = "jpg,png,webp,gif";
+    const parameters = {
+        allowed_formats: allowedFormats,
+        folder,
+        timestamp,
+    };
     const signature = createCloudinarySignature(parameters, apiSecret);
 
     return sendSuccess(res, {
@@ -35,6 +40,7 @@ export const createUploadSignature = asyncHandler(async (req, res) => {
         apiKey,
         timestamp,
         folder,
+        allowedFormats,
         signature,
     });
 });

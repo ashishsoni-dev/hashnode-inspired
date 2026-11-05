@@ -30,6 +30,7 @@ export async function uploadImage(file, purpose) {
     formData.append("api_key", signatureData.apiKey);
     formData.append("timestamp", String(signatureData.timestamp));
     formData.append("folder", signatureData.folder);
+    formData.append("allowed_formats", signatureData.allowedFormats);
     formData.append("signature", signatureData.signature);
 
     const uploadResponse = await fetch(uploadUrl, {
