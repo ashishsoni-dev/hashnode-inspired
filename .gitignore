@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build output
+client/dist/
+server/coverage/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+client/.env
+server/.env
+
+# Logs and editor files
+*.log
+npm-debug.log*
+.DS_Store
+.vscode/
+.idea/
+
+
+# Temporary development notes
+APPLY-INSTRUCTIONS.md
+FIXES-APPLIED.md
+PHASE3-FINAL-UPDATE.md

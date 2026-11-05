@@ -1,0 +1,99 @@
+.container {
+    width: min(100% - 32px, var(--container-width));
+    margin-inline: auto;
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: calc(100% - 24px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Mobile Markdown Editor Preview */
+
+.post-editor__mobile-tabs {
+    display: none;
+}
+
+.post-editor__live-preview {
+    display: none;
+    min-width: 0;
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    overflow-wrap: anywhere;
+}
+
+.post-editor__live-preview .editor-preview {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+}
+
+/* Mobile layout */
+
+@media (max-width: 767px) {
+    .post-editor__desktop-preview-action {
+        display: none !important;
+    }
+
+    .post-editor__mobile-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2);
+        padding: var(--space-1);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        background: var(--color-bg);
+    }
+
+    .post-editor__mobile-tabs button {
+        min-height: 44px;
+        border: 1px solid transparent;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--color-muted);
+        font: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .post-editor__mobile-tabs button.is-active {
+        border-color: var(--color-primary);
+        background: var(--color-primary);
+        color: #fff;
+    }
+
+    .post-editor__markdown-workspace--write .post-editor__markdown-field {
+        display: block;
+    }
+
+    .post-editor__markdown-workspace--write .post-editor__live-preview {
+        display: none;
+    }
+
+    .post-editor__markdown-workspace--preview .post-editor__markdown-field {
+        display: none;
+    }
+
+    .post-editor__markdown-workspace--preview .post-editor__live-preview {
+        display: block;
+    }
+
+    .post-editor__live-preview .editor-preview__header h1 {
+        font-size: var(--font-size-2xl);
+    }
+}
